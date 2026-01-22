@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farol - Download do App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            color: white;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-apple {
+            background: #000;
+            color: white;
+        }
+
+        .btn-android {
+            background: #3DDC84;
+            color: white;
+        }
+
+        .loading {
+            color: #666;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">F</div>
+        <h1>Farol</h1>
+        <p>Baixe nosso aplicativo e tenha acesso a uma experiência incrível!</p>
+        
+        <div id="redirecting" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Redirecionando para a loja...</p>
+        </div>
+
+        <div id="buttons" class="buttons">
+            <a href="https://apps.apple.com/br/app/farol/id6756614790" class="btn btn-apple" id="iosBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                </svg>
+                App Store
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=br.com.farol.cultura&hl=pt_BR" class="btn btn-android" id="androidBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3.609 1.814L13.792 12 3.609 22.186a.996.996 0 0 1-.099-.165V1.979c.026-.057.059-.112.099-.165zM14.5 12.707l2.492 2.492-9.801 5.485L14.5 12.707zm3.199-1.414l2.664 1.488c.658.368.658 1.29 0 1.658l-2.664 1.488-2.728-2.728 2.728-2.906zM7.191 3.316l9.801 5.485-2.492 2.492-7.309-7.977z"/>
+                </svg>
+                Google Play
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function detectMobileOS() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Detecta iOS
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return 'iOS';
+            }
+
+            // Detecta Android
+            if (/android/i.test(userAgent)) {
+                return 'Android';
+            }
+
+            return 'Unknown';
+        }
+
+        function redirect() {
+            const os = detectMobileOS();
+            const iosUrl = 'https://apps.apple.com/br/app/farol/id6756614790';
+            const androidUrl = 'https://play.google.com/store/apps/details?id=br.com.farol.cultura&hl=pt_BR';
+
+            if (os === 'iOS') {
+                document.getElementById('redirecting').style.display = 'block';
+                document.getElementById('buttons').style.display = 'none';
+                window.location.href = iosUrl;
+            } else if (os === 'Android') {
+                document.getElementById('redirecting').style.display = 'block';
+                document.getElementById('buttons').style.display = 'none';
+                window.location.href = androidUrl;
+            }
+            // Se não detectar, mostra os botões para escolha manual
+        }
+
+        // Executa o redirecionamento automático quando a página carregar
+        window.addEventListener('load', function() {
+            // Pequeno delay para garantir que a página seja visível antes do redirect
+            setTimeout(redirect, 500);
+        });
+    </script>
+</body>
+</html>
